@@ -133,7 +133,8 @@ if (-not $NoTasks) {
     }
 
     if (-not $merged) {
-        $result = $template
+        # 没有现成的 tasks.json：直接复制模板，保留可读的排版
+        Copy-Item -LiteralPath $templatePath -Destination $tasksPath -Force
     }
     else {
         if (-not $merged.PSObject.Properties['version']) {
@@ -149,11 +150,10 @@ if (-not $NoTasks) {
             $keep += $t
         }
         $merged.tasks = @($keep) + @($template.tasks)
-        $result = $merged
-    }
 
-    $json = $result | ConvertTo-Json -Depth 12
-    [IO.File]::WriteAllText($tasksPath, $json, (New-Object System.Text.UTF8Encoding($false)))
+        $json = $merged | ConvertTo-Json -Depth 12
+        [IO.File]::WriteAllText($tasksPath, $json, (New-Object System.Text.UTF8Encoding($false)))
+    }
     Write-InstallLog '      -> .vscode\tasks.json（已设为默认生成任务）' 'DarkGray'
 }
 
