@@ -1,0 +1,25 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "cmake-flash-kit 配置",
+  "type": "object",
+  "properties": {
+    "projectName": { "type": "string", "description": "工程名，仅用于显示与 .elf 匹配" },
+    "target": { "type": "string", "description": "OpenOCD target 配置名，如 stm32h7x；auto 表示自动推断" },
+    "probe": { "type": "string", "enum": ["auto", "stlink", "daplink"], "description": "下载器类型" },
+    "probeSerial": { "type": "string", "description": "多下载器时用序列号指定" },
+    "speed": { "type": "integer", "description": "SWD 速度 kHz，0 表示自动（ST-Link 4MHz / DAPLink 2MHz）" },
+    "buildDir": { "type": "string", "description": "CMake 构建目录，相对工程根目录" },
+    "buildType": { "type": "string", "description": "CMAKE_BUILD_TYPE" },
+    "configureArgs": { "type": "array", "items": { "type": "string" }, "description": "额外传给 cmake 配置阶段的参数" },
+    "elf": { "type": "string", "description": "固件路径，auto 表示自动查找 .elf" },
+    "openocd": { "type": "string", "description": "openocd.exe 路径，auto 表示自动搜索" },
+    "openocdVersion": { "type": "string", "description": "自动安装时使用的 xPack OpenOCD 版本" },
+    "autoInstallOpenOCD": { "type": "boolean", "description": "找不到 OpenOCD 时是否自动下载" },
+    "connectUnderReset": { "type": "boolean", "description": "复位时连接（旧程序带看门狗时使用）" },
+    "verify": { "type": "boolean", "description": "烧录后校验" },
+    "extraOpenocdConfig": { "type": "array", "items": { "type": "string" }, "description": "追加的 OpenOCD -c 命令" },
+    "binAddress": { "type": "string", "description": "烧录 .bin 时的起始地址" },
+    "autoSpeedFallback": { "type": "boolean", "description": "失败时自动降速重试" }
+  },
+  "additionalProperties": false
+}

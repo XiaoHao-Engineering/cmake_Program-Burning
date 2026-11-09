@@ -1,0 +1,13 @@
+# 构建产物与日志
+build/
+cmake-build-*/
+.out/
+*.log
+*.bak
+
+# 自动下载的工具（在 %LOCALAPPDATA% 里，不会出现在仓库中）
+tools/
+
+# 编辑器
+.idea/
+*.user

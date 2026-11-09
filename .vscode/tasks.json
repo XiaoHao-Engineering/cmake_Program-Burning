@@ -1,0 +1,113 @@
+{
+  "version": "2.0.0",
+  "options": {
+    "cwd": "${workspaceFolder}"
+  },
+  "tasks": [
+    {
+      "label": "Flash: 编译并烧录（自动识别 ST-Link / DAPLink）",
+      "detail": "cmake-flash-kit：配置 CMake（按需）→ 编译 → 自动识别下载器 → OpenOCD 烧录",
+      "type": "process",
+      "command": "powershell",
+      "args": [
+        "-NoLogo",
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "${workspaceFolder}/.flash/flash.ps1"
+      ],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": {
+        "base": "$gcc",
+        "fileLocation": ["relative", "${workspaceFolder}"]
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared",
+        "clear": true,
+        "focus": true
+      }
+    },
+    {
+      "label": "Flash: 仅烧录（不编译）",
+      "type": "process",
+      "command": "powershell",
+      "args": [
+        "-NoLogo",
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "${workspaceFolder}/.flash/flash.ps1",
+        "-NoBuild"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "Flash: 使用 ST-Link",
+      "type": "process",
+      "command": "powershell",
+      "args": [
+        "-NoLogo",
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "${workspaceFolder}/.flash/flash.ps1",
+        "-Probe",
+        "stlink"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "Flash: 使用 DAPLink",
+      "type": "process",
+      "command": "powershell",
+      "args": [
+        "-NoLogo",
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "${workspaceFolder}/.flash/flash.ps1",
+        "-Probe",
+        "daplink"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "Flash: 复位时连接（旧程序带看门狗时用）",
+      "type": "process",
+      "command": "powershell",
+      "args": [
+        "-NoLogo",
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "${workspaceFolder}/.flash/flash.ps1",
+        "-UnderReset"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "Flash: 列出已连接的下载器",
+      "type": "process",
+      "command": "powershell",
+      "args": [
+        "-NoLogo",
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "${workspaceFolder}/.flash/flash.ps1",
+        "-ListProbes"
+      ],
+      "problemMatcher": []
+    }
+  ]
+}
